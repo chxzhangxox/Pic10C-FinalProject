@@ -1,5 +1,6 @@
 # Pic10C-FinalProject
 Final Project for PIC10C
+Using Qt creator to design a game with GUI.
 
 Idea1
 Project: Pokemon Jump
