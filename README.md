@@ -9,4 +9,4 @@ My goal is to write a game similar to the google dinosaur game. There will be a 
 Idea2
 Project: Whac-A-Pokemon
 
-Player is able to hit the Pokemon that randomly goes out side pokeballs in a 5*5 grid with a hammer (similar to Wrack-A-Mole). Each hit adds score of one. I'll continue to update.
+Player is able to hit the Pokemon that randomly goes out side pokeballs in a 5*5 grid with a hammer (similar to Wrack-A-Mole). Each hit adds score of one. In order to successfully run the program, download the images and put it the directory in the program (or change the directory in the program to correctly load the images required for the program)
