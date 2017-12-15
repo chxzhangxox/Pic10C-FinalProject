@@ -9,4 +9,4 @@ My goal is to write a game similar to the google dinosaur game. There will be a 
 Idea2
 Project: Whac-A-Pokemon
 
-Player is able to hit the Pokemon that randomly moves up and down with a hammer. With different pokemons the scores are different. Also pokemons associates with higher score will move faster.
+Player is able to hit the Pokemon that randomly goes out side pokeballs in a 5*5 grid with a hammer (similar to Wrack-A-Mole). Each hit adds score of one. I'll continue to update.
