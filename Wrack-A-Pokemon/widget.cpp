@@ -9,69 +9,76 @@
 #include <QDebug>
 
 Widget::Widget(QWidget *parent):QWidget(parent){
-    initial_beat(5);
+    button_init(5);
+
     time = QTime::currentTime();
-    qsrand(time.msec()+ time.second()*1000);
-    //random access
-    srand[0] = 0;
-    srand[1] = 0;
-    srand[2] = 0;
-    srand[3] = 0;
-    srand[4] = 0;
+    qsrand(time.msec() + time.second()*1000);
+
+    //initialize indexes
+    for (int i = 0; i < 5; i++){
+    index[i] = 0;
+    }
 
     timer = new QTimer(this);
-    timer->connect(timer,SIGNAL(timeout()),this,SLOT(start_game()));
-    timer->start(200);
+    timer->start(1000);
 
-    QPixmap qp;
-    qp.load("D:/Academic/Wrack-A-Pokemon/hammer.png");
-    this->setCursor(QCursor(qp));
+    timer->connect(timer,SIGNAL(timeout()),this,SLOT(start_game()));
+
+    //setup cursor
+    QPixmap cursor_im;
+    cursor_im.load("D:/Academic/Wrack-A-Pokemon/hammer.png");
+    this->setCursor(QCursor(cursor_im));
 }
 
-void Widget::initial_beat(int n){
-    int counter = 0;
+void Widget::button_init(int n){
+    int rows = 0;
+    //initialize 25 buttons (resize them and set icons)
     for(int i = 0; i < n; i++){
         for (int j = 0; j < 5; j++){
-            buttons[counter] = new Button(this);
-            buttons[counter] -> resize(200,200);
-            buttons[counter] -> move(200*j, 200*i);
-            buttons[counter] -> setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/hole.jpg"));
-            buttons[counter] -> setIconSize(QSize(200,200));
-            counter++;
+            buttons[rows] = new Button(this);
+            buttons[rows] -> resize(200,200);
+            buttons[rows] -> move(200*j, 200*i);
+            buttons[rows] -> setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/hole.jpg"));
+            buttons[rows] -> setIconSize(QSize(210,210));
+
+            rows++;
         }
     }
-    for(int i = 0; i < 6; i++){
-        icons[i] = new QIcon("D:/Academic/Wrack-A-Pokemon/Pikachu.jpg" );
+
+
+    //setup the pokemon image we wish to import
+    for(int i = 0; i < 7; i++){
+        pokemons[i] = new QIcon("D:/Academic/Wrack-A-Pokemon/"+QString::number(i)+".jpg" );
     }
 }
 
 void Widget::start_game(){
-    this->setCursor(QCursor(QPixmap("D:/Academic/Wrack-A-Pokemon/hammer.png"))); //release the mouse
+    this->setCursor(QCursor(QPixmap("D:/Academic/Wrack-A-Pokemon/hammer.png")));
+
     for(int i = 0; i < 5; i++){
-        if(buttons[srand[i]]->num_pic < 6){
-            buttons[srand[i]] -> setIcon(*icons[buttons[srand[i]]->num_pic++]);
-            buttons[srand[i]] -> setIconSize(QSize(200,200));
+        //randomly determine if there is a pokemon there
+        buttons[index[i]]->is_pokemon = qrand()%2;
+        if(buttons[index[i]]->is_pokemon == 1){
+            buttons[index[i]] -> setIcon(*pokemons[qrand()%7]);
+            buttons[index[i]] -> setIconSize(QSize(210,210));
         }
         else{
-            buttons[srand[i]]->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/hole.jpg"));
-            buttons[srand[i]]->setIconSize(QSize(200,200));
-            buttons[srand[i]]->num_pic = 0;
-            srand[i] = qrand()%25;
-
-            //score
-            setWindowTitle("Welcome to Wrack-A-Pokemon! Your Score is :"+QString::number(score));
+            buttons[index[i]]->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/hole.jpg"));
+            buttons[index[i]]->setIconSize(QSize(210,210));
+            index[i] = qrand()%25;
         }
+
+        //output scores
+        setWindowTitle("Welcome to Wrack-A-Pokemon! Your Score is :"+QString::number(score));
     }
 }
 
-Button **Widget::getBeat(){
-    return buttons;
-}
 
 Widget::~Widget(){
+    delete[] pokemons;
     delete[] buttons;
-    delete[] icons;
     delete timer;
+
 }
 
 

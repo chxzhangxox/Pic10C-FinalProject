@@ -6,28 +6,29 @@
 #include <QTimer>
 #include <QTime>
 #include <QIcon>
+#include <QLabel>
 
 class Widget: public QWidget{
     Q_OBJECT
 
 public:
     Widget(QWidget *parent = 0);
-    Button **getBeat();
-    ~Widget();
     
-    void initial_beat(int n);
+    void button_init(int n);
     static int score;
+
+     ~Widget();
 
 public slots:
     void start_game();
 
 private:
     Button *buttons[25];
-    QIcon *icons[6];
+    QIcon *pokemons[7];
     
     QTimer *timer; //use it to refresh the interface
     QTime time;
-    int srand[5];
+    int index[5];
     
     
 };
