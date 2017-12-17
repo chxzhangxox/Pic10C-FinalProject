@@ -7,6 +7,7 @@
 #include <QTime>
 #include <QIcon>
 #include <QLabel>
+#include <QMediaPlayer>
 
 class Widget: public QWidget{
     Q_OBJECT
@@ -26,11 +27,11 @@ private:
     Button *buttons[25];
     QIcon *pokemons[7];
     
-    QTimer *timer; //use it to refresh the interface
+    QTimer *timer;
     QTime time;
     int index[5];
     
-    
+    QMediaPlayer *music;
 };
 
 #endif // WIDGET_H

@@ -6,13 +6,14 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include <QLabel>
+#include <QApplication>
 
 class Button: public QPushButton{
     Q_OBJECT
 public:
     Button(QWidget *parent);
     
-    //record the number of pictures
+    //detect if there is a pokemon
     bool is_pokemon;
 
     //void hammer();
@@ -27,7 +28,6 @@ public slots:
 private:
     QTimer *time;
     Button *buttonArray;
-    QLabel *score_label;
 };
 
 

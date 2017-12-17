@@ -1,12 +1,13 @@
 #include "widget.h"
 #include "user_button.h"
 
+
 #include <QIcon>
 #include <QTimer>
 #include <QCursor>
 #include <QPixmap>
 #include <QSize>
-#include <QDebug>
+#include <QMediaPlayer>
 
 Widget::Widget(QWidget *parent):QWidget(parent){
     button_init(5);
@@ -20,8 +21,13 @@ Widget::Widget(QWidget *parent):QWidget(parent){
     }
 
     timer = new QTimer(this);
-    timer->start(1000);
 
+    QMediaPlayer *music = new QMediaPlayer();
+    music->setMedia(QUrl("D:/Academic/Wrack-A-Pokemon/pokemon.mp3"));
+    music->play();
+
+
+    timer->start(1000);
     timer->connect(timer,SIGNAL(timeout()),this,SLOT(start_game()));
 
     //setup cursor
@@ -78,7 +84,7 @@ Widget::~Widget(){
     delete[] pokemons;
     delete[] buttons;
     delete timer;
-
+    delete music;
 }
 
 

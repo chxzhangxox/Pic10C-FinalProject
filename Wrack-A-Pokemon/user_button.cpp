@@ -8,6 +8,7 @@
 #include <QSize>
 #include <QIcon>
 #include <QPixmap>
+#include <QSound>
 
 Button::Button(QWidget *parent): QPushButton(parent){
     //setup a timer within the button
@@ -25,7 +26,11 @@ void Button::mousePressEvent(QMouseEvent *e){
     //record the score
     if(this->is_pokemon != 0){
         this->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/hit.png"));
+        QSound::play("D:/Academic/Wrack-A-Pokemon/hit.wav");
         Widget::score++;
+    }
+    else{
+        QSound::play("D:/Academic/Wrack-A-Pokemon/no_hit.wav");
     }
 }
 
@@ -35,6 +40,4 @@ void Button::ham_up(){
 
 Button::~Button(){
     delete time;
-    delete buttonArray;
-    delete score_label;
 }
