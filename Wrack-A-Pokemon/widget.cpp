@@ -11,6 +11,7 @@
 
 Widget::Widget(QWidget *parent):QWidget(parent){
     button_init(5);
+    func_button();
 
     time = QTime::currentTime();
     qsrand(time.msec() + time.second()*1000);
@@ -26,9 +27,10 @@ Widget::Widget(QWidget *parent):QWidget(parent){
     music->setMedia(QUrl("D:/Academic/Wrack-A-Pokemon/pokemon.mp3"));
     music->play();
 
-
-    timer->start(1000);
+    connect(start,SIGNAL(clicked(bool)),this,SLOT(set_timer()));
     timer->connect(timer,SIGNAL(timeout()),this,SLOT(start_game()));
+
+    connect(end,SIGNAL(clicked(bool)),this,SLOT(close()));
 
     //setup cursor
     QPixmap cursor_im;
@@ -52,11 +54,45 @@ void Widget::button_init(int n){
     }
 
 
-    //setup the pokemon image we wish to import
+    //setup the pokemon images we wish to import
     for(int i = 0; i < 7; i++){
         pokemons[i] = new QIcon("D:/Academic/Wrack-A-Pokemon/"+QString::number(i)+".jpg" );
     }
 }
+
+void Widget::func_button(){
+    start = new QPushButton(this);
+    start->resize(400,200);
+    start->move(200*5,200*1);
+    start->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/startbutton.jpg"));
+    start->setIconSize(QSize(400,220));
+
+    end = new QPushButton(this);
+    end->resize(400,200);
+    end->move(200*5,200*3);
+    end->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/endbutton.jpg"));
+    end->setIconSize(QSize(400,220));
+
+    score_t = new QPushButton(this);
+    score_t->resize(400,200);
+    score_t->move(200*5,200*2);
+    score_t->setStyleSheet("background-image: url(D:/Academic/Wrack-A-Pokemon/blank.jpg);""border:none");
+    score_t->setText("Your Score is 0");
+
+    title = new QPushButton(this);
+    title->resize(400,200);
+    title->move(200*5,200*0);
+    title->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/pokelogo"));
+    title->setIconSize(QSize(450,210));
+
+    tail = new QPushButton(this);
+    tail->resize(400,200);
+    tail->move(200*5,200*4);
+    tail->setIcon(QIcon("D:/Academic/Wrack-A-Pokemon/tail"));
+    tail->setIconSize(QSize(400,220));
+
+}
+
 
 void Widget::start_game(){
     this->setCursor(QCursor(QPixmap("D:/Academic/Wrack-A-Pokemon/hammer.png")));
@@ -76,15 +112,22 @@ void Widget::start_game(){
 
         //output scores
         setWindowTitle("Welcome to Wrack-A-Pokemon! Your Score is :"+QString::number(score));
+        score_t->setText("Your Score is: " +QString::number(score));
     }
 }
 
+void Widget::set_timer(){
+    timer->start(1000);
+}
 
 Widget::~Widget(){
     delete[] pokemons;
     delete[] buttons;
     delete timer;
     delete music;
+    delete start;
+    delete score_t;
+    delete end;
 }
 
 

@@ -27,7 +27,6 @@ public slots:
 
 private:
     QTimer *time;
-    Button *buttonArray;
 };
 
 

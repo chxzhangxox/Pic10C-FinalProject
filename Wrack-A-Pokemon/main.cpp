@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     pW = &w;
 
     w.setWindowTitle("Wrack-A-Pokemon");
-    w.setFixedSize(1200,1000);
+    w.setFixedSize(1400,1000);
     w.show();
 
     return a.exec();
